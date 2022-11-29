@@ -19,6 +19,6 @@ class UserLoanHistory(
 ) {
 
     fun doReturn() {
-        this.isReturn = true;
+        this.isReturn = true
     }
 }

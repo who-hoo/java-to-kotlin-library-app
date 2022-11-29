@@ -26,7 +26,7 @@ class User(
     }
 
     fun updateName(name: String) {
-        this.name = name;
+        this.name = name
     }
 
     fun loanBook(book: Book) {
