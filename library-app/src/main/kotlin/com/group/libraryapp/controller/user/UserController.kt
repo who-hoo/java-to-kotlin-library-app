@@ -29,4 +29,9 @@ class UserController(
     fun deleteUser(@RequestParam name: String) {
         userService.deleteUser(name)
     }
+
+    @GetMapping("/user/loan")
+    fun getUserLoanHistories() {
+        userService.getUserLoanHistories()
+    }
 }
