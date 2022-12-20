@@ -5,8 +5,8 @@ import com.group.libraryapp.domain.book.BookRepository
 import com.group.libraryapp.domain.book.BookType
 import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.domain.user.UserRepository
-import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.domain.user.loanhistory.UserLoanStatus
 import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
@@ -118,6 +118,31 @@ class BookServiceTest @Autowired constructor(
         assertThat(results[0].bookName).isEqualTo("A")
         assertThat(results[0].user.id).isEqualTo(savedUser.id)
         assertThat(results[0].status).isEqualTo(UserLoanStatus.RETURNED)
+    }
+
+    @Test
+    @DisplayName("책 대여 권수를 정상 확인한다")
+    fun countLoanedBookTest() {
+        // given
+        val savedUser = userRepository.save(
+            User(
+                "testUser",
+                null
+            )
+        )
+        userLoanHistoryRepository.saveAll(
+            listOf(
+                UserLoanHistory.fixture(savedUser, "A"),
+                UserLoanHistory.fixture(savedUser, "B", UserLoanStatus.RETURNED),
+                UserLoanHistory.fixture(savedUser, "C", UserLoanStatus.RETURNED),
+            )
+        )
+
+        // when
+        val result = bookService.countLoanedBook()
+
+        // then
+        assertThat(result).isEqualTo(1)
     }
 
 }
