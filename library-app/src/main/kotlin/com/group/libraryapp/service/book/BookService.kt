@@ -50,6 +50,6 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun getBookStatistics(): List<BookStatResponse> {
-        return bookRepository.getStatus()
+        return bookRepository.getStats()
     }
 }

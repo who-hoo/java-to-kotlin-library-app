@@ -10,6 +10,6 @@ interface BookRepository : JpaRepository<Book, Long> {
 
     @Query("select new com.group.libraryapp.dto.book.response.BookStatResponse(b.type, count(b.id)) " +
             "from Book b group by b.type")
-    fun getStatus(): List<BookStatResponse>
+    fun getStats(): List<BookStatResponse>
 
 }
